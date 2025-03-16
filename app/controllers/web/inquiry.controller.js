@@ -41,3 +41,19 @@ export const inquiryDelete = async (req, res) => {
         message: deleteInquiry,
     })
 }
+
+// inquiry delete controller
+export const updateInquiry = async (req, res) => {
+    const updateId = req.params.id;
+    const { name, email, phone, message } = req.body;
+
+    const updateRes = await inquiryModal.updateOne(
+        { _id: updateId },  // Find by _id
+        { $set: { name, email, phone, message } } // Only update specified fields
+    );
+
+    res.send({
+        message: 'Inquiry updated successfully',
+        data: updateRes
+    });
+}
